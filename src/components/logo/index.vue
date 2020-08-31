@@ -27,7 +27,6 @@ export default {
 <style lang="less" scoped>
 /*缩小首页布 局顶部的高度*/
 @height: 59px;
-@primary-color: #1890ff;
 
 .logo {
   height: @height !important;

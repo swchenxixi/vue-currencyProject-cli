@@ -45,7 +45,7 @@ export default {
 .layout {
   .header {
     padding: 0 12px 0 0;
-    background-color: #1890ff;
+    background-color: @primary-color;
     height: 59px;
     line-height: 59px;
     color: #fff;

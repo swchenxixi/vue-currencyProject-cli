@@ -6,6 +6,7 @@ import store from './store';
 import './loading-antd';
 //全局引入提示组件
 import { message, notification } from 'ant-design-vue';
+
 Vue.prototype.$message = message;
 Vue.prototype.$notification = notification;
 
