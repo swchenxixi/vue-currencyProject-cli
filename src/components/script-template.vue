@@ -16,6 +16,9 @@ export default {
   updated() {},
   beforeDestroy() {},
   destroyed() {},
-  methods: {}
+  methods: {},
+  render() {
+    return null;
+  }
 };
 </script>
