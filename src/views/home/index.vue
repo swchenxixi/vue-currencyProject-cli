@@ -46,8 +46,8 @@ export default {
   .header {
     padding: 0 12px 0 0;
     background-color: @primary-color;
-    height: 59px;
-    line-height: 59px;
+    height: @global-header-height;
+    line-height: @global-header-line-height;
     color: #fff;
   }
 }

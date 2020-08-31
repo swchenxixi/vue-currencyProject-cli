@@ -32,7 +32,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@primary-color: #1890ff;
 .tab-layout-tabs {
   border-bottom: 1px solid #ccc;
   border-left: 1px solid #ccc;

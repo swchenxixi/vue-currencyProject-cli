@@ -26,11 +26,9 @@ export default {
 </script>
 <style lang="less" scoped>
 /*缩小首页布 局顶部的高度*/
-@height: 59px;
-
 .logo {
-  height: @height !important;
-  line-height: @height !important;
+  height: @global-header-height !important;
+  line-height: @global-header-line-height !important;
   box-shadow: none !important;
   transition: background 300ms;
   background-color: @primary-color;
