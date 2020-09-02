@@ -1,14 +1,27 @@
 <template>
   <a-layout>
     <a-layout-sider v-model="collapsed" theme="light">
-      <side-menu :collapsed="collapsed" @select="selectMenu" />
+      <side-menu
+        :menus="menus"
+        :collapsed="collapsed"
+        @select="selectMenu"
+        :selectedKeys="[activeKey]"
+      />
     </a-layout-sider>
     <a-layout class="layout">
       <a-layout-header class="header">
         <global-header @toggleCollapsed="toggleCollapsedMenu" />
       </a-layout-header>
       <a-layout-content>
-        <tab-layout />
+        <tab-layout>
+          <tab-header
+            slot="header"
+            :pageList="pageList"
+            :activeKey="activeKey"
+            @change="onChangeTab"
+          ></tab-header>
+          <div slot="main">主体区域</div>
+        </tab-layout>
       </a-layout-content>
       <a-layout-footer>Footer</a-layout-footer>
     </a-layout>
@@ -19,23 +32,52 @@
 import SideMenu from '@/components/side-menu';
 import GlobalHeader from '@/components/global-header';
 import TabLayout from '@/layouts/tab-layout';
+import TabHeader from '@/components/tab-header';
 export default {
   components: {
     SideMenu,
     GlobalHeader,
-    TabLayout
+    TabLayout,
+    TabHeader
   },
   data() {
     return {
-      collapsed: false
+      collapsed: false,
+      menus: [],
+      activeKey: '',
+      pageList: []
     };
+  },
+  created() {
+    this.getPermissions();
   },
   methods: {
     toggleCollapsedMenu(value) {
       this.collapsed = value;
     },
     selectMenu(obj) {
-      console.log(obj);
+      const { menus, findMenuByKey, pageList } = this;
+      const menu = findMenuByKey(menus, obj.key);
+      if (!pageList.includes(menu)) {
+        pageList.push(menu);
+      }
+      this.activeKey = obj.key;
+    },
+    findMenuByKey(menus, key) {
+      for (let item of menus) {
+        if (item.path === key) {
+          return item;
+        } else if (item.children && item.children.length > 0) {
+          return this.findMenuByKey(item.children, key);
+        }
+      }
+    },
+    onChangeTab(activeKey) {
+      this.activeKey = activeKey;
+    },
+    async getPermissions() {
+      const result = await this.$store.dispatch('loginUser/getPermissions');
+      this.menus = result.data.menus;
     }
   }
 };

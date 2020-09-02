@@ -1,13 +1,5 @@
 import axios from 'axios';
 
-// function delay(duration) {
-//   return new Promise(resolve => {
-//     setTimeout(() => {
-//       resolve();
-//     }, duration);
-//   });
-// }
-
 export async function login(loginId, loginPassword) {
   const resp = await axios.post('/api/user/login', {
     loginId,
@@ -33,6 +25,19 @@ export async function whoAmI() {
     return null;
   }
   const resp = await axios.get('/api/user/whoami', {
+    headers: {
+      token
+    }
+  });
+  return resp.data;
+}
+
+export async function getPermissions() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return null;
+  }
+  const resp = await axios.get('/api/permissions', {
     headers: {
       token
     }

@@ -1,61 +1,3 @@
-<template>
-  <div>
-    <logo />
-    <a-menu
-      mode="inline"
-      :open-keys="openKeys"
-      @openChange="onOpenChange"
-      @select="onSelect"
-    >
-      <a-sub-menu key="sub1">
-        <span slot="title"
-          ><a-icon type="mail" /><span>Navigation One</span></span
-        >
-        <a-menu-item key="1">
-          Option 1
-        </a-menu-item>
-        <a-menu-item key="2">
-          Option 2
-        </a-menu-item>
-        <a-menu-item key="3">
-          Option 3
-        </a-menu-item>
-        <a-menu-item key="4">
-          Option 4
-        </a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub2">
-        <span slot="title"
-          ><a-icon type="appstore" /><span>Navigation Two</span></span
-        >
-        <a-menu-item key="5">
-          Option 5
-        </a-menu-item>
-        <a-menu-item key="6">
-          Option 6
-        </a-menu-item>
-      </a-sub-menu>
-      <a-sub-menu key="sub4">
-        <span slot="title"
-          ><a-icon type="setting" /><span>Navigation Three</span></span
-        >
-        <a-menu-item key="9">
-          Option 9
-        </a-menu-item>
-        <a-menu-item key="10">
-          Option 10
-        </a-menu-item>
-        <a-menu-item key="11">
-          Option 11
-        </a-menu-item>
-        <a-menu-item key="12">
-          Option 12
-        </a-menu-item>
-      </a-sub-menu>
-    </a-menu>
-  </div>
-</template>
-
 <script>
 import Logo from '@/components/logo';
 
@@ -69,11 +11,26 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    menus: {
+      type: Array,
+      required: true
+    },
+    mode: {
+      type: String,
+      required: false,
+      default: 'inline'
+    },
+    selectedKeys: {
+      type: Array,
+      default: () => {
+        return [];
+      }
     }
   },
   data() {
     return {
-      rootSubmenuKeys: ['sub1', 'sub2', 'sub4'],
+      rootSubmenuKeys: [],
       openKeys: [],
       cachedOpenKeys: []
     };
@@ -99,7 +56,69 @@ export default {
     },
     onSelect(obj) {
       this.$emit('select', obj);
+    },
+    renderItem(menu) {
+      return menu.children
+        ? this.renderSubMenu(menu)
+        : this.renderMenuItem(menu);
+    },
+    renderMenuItem(menu) {
+      return (
+        <a-menu-item key={menu.path}>
+          {this.renderIcon(menu.meta.icon)}
+          <span>{menu.meta.title}</span>
+        </a-menu-item>
+      );
+    },
+    renderSubMenu(menu) {
+      const menuItems = menu.children.map(item => {
+        return this.renderItem(item);
+      });
+      return (
+        <a-sub-menu key={menu.path}>
+          <span slot="title">
+            {this.renderIcon(menu.meta.icon)}
+            <span>{menu.meta.title}</span>
+          </span>
+          {menuItems}
+        </a-sub-menu>
+      );
+    },
+    renderIcon(icon) {
+      if (icon === 'none' || icon === undefined) {
+        return null;
+      }
+      return <a-icon type={icon} />;
     }
+  },
+  render() {
+    const {
+      mode,
+      menus,
+      openKeys,
+      onOpenChange,
+      selectedKeys,
+      onSelect,
+      renderItem
+    } = this;
+    const menuTree = menus.map(item => {
+      return renderItem(item);
+    });
+    const props = {
+      selectedKeys,
+      openKeys,
+      mode
+    };
+    const on = {
+      openChange: onOpenChange,
+      select: onSelect
+    };
+    return (
+      <div>
+        <logo />
+        <a-menu {...{ props, on }}>{menuTree}</a-menu>
+      </div>
+    );
   }
 };
 </script>

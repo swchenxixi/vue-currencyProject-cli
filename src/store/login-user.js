@@ -1,4 +1,4 @@
-import { login, logout, whoAmI } from '../api/login-service';
+import { login, logout, whoAmI, getPermissions } from '@/api/login-service';
 
 export default {
   namespaced: true,
@@ -31,6 +31,14 @@ export default {
       const result = await whoAmI();
       commit('setIsLoading', false);
       commit('setData', result);
+    },
+
+    async getPermissions({ commit }) {
+      commit('setIsLoading', true);
+      const result = await getPermissions();
+      commit('setIsLoading', false);
+      commit('setData', result);
+      return result;
     },
 
     logout({ commit }) {
