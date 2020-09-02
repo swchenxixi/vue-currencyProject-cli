@@ -6,6 +6,7 @@
     type="editable-card"
     :activeKey="activeKey"
     @change="onChange"
+    @edit="onDelete"
   >
     <a-tab-pane :id="page.path" :key="page.path" v-for="page in pageList">
       <span slot="tab" :pagekey="page.path">{{ page.meta.title }}</span>
@@ -28,6 +29,9 @@ export default {
   methods: {
     onChange(activeKey) {
       this.$emit('change', activeKey);
+    },
+    onDelete(targetKey) {
+      this.$emit('delete', targetKey);
     }
   }
 };
