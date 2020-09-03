@@ -1,5 +1,5 @@
 <template>
-  <a-table-list
+  <table-list
     :tableData="tableData"
     :searchData="searchData"
     :pagination="{
@@ -8,18 +8,22 @@
     }"
     :changeTable="changeTable"
   >
+    <template slot="btnbox" slot-scope="record">
+      <a-button @click="btnAction(record)">操作1</a-button>
+      <a-button @click="btnAction(record)">操作2</a-button>
+    </template>
     <template slot="action" slot-scope="record">
       <a @click="tableAction(record)">操作1</a>
       <a @click="tableAction(record)">操作2</a>
     </template>
-  </a-table-list>
+  </table-list>
 </template>
 <script>
-import ATableList from '@/components/table-list/';
+import TableList from '@/components/table-list/';
 import { getTableData } from '@/api/table-data.js';
 export default {
   components: {
-    ATableList
+    TableList
   },
   created() {
     this.getData();
@@ -125,6 +129,9 @@ export default {
     },
     tableAction(record) {
       console.log(record);
+    },
+    btnAction(records) {
+      console.log(records);
     },
     changeTable(type, datas) {
       if (type === 'table') {

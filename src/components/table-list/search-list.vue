@@ -207,4 +207,7 @@ export default {
   width: 65%;
   display: inline-block;
 }
+.ant-card-bordered {
+  border: none;
+}
 </style>

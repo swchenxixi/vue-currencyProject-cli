@@ -1,27 +1,30 @@
 <template>
   <div class="tableList">
-    <a-search-list
+    <search-list
       :searchData="searchData"
       :changeTable="changeTable"
-    ></a-search-list>
-    <a-table-page
+    ></search-list>
+    <table-page
       :tableData="tableData"
       :pagination="pagination"
       :changeTable="changeTable"
     >
+      <template slot="btnbox" slot-scope="record">
+        <slot name="btnbox" :record="record" />
+      </template>
       <template slot="action" slot-scope="record">
         <slot name="action" :record="record" />
       </template>
-    </a-table-page>
+    </table-page>
   </div>
 </template>
 <script>
-import ASearchList from '@/components/table-list/search-list.vue';
-import ATablePage from '@/components/table-list/table-page.vue';
+import SearchList from '@/components/table-list/search-list.vue';
+import TablePage from '@/components/table-list/table-page.vue';
 export default {
   components: {
-    ASearchList,
-    ATablePage
+    SearchList,
+    TablePage
   },
   props: {
     tableData: Object,
