@@ -171,7 +171,7 @@ export default {
     return {
       advanced: false,
       moment,
-      dateFormat: 'YYYY/MM/DD',
+      dateFormat: 'YYYY-MM-DD',
       searchVal: searchVal,
       oldSearch: JSON.parse(JSON.stringify(searchVal)),
       formatDate,
@@ -206,8 +206,12 @@ export default {
 /deep/.ant-form-item-control-wrapper {
   width: 65%;
   display: inline-block;
+  vertical-align: middle;
 }
 .ant-card-bordered {
   border: none;
+}
+.ant-form-item {
+  margin-bottom: 0;
 }
 </style>

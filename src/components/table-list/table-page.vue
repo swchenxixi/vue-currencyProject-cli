@@ -12,6 +12,7 @@
       :pagination="pagination"
       :row-selection="rowSelection"
       @change="handleTableChange"
+      :scroll="{ x: 1500, y: 400 }"
     >
       <span slot="action" slot-scope="text, record">
         <slot name="action" :record="record" />
@@ -65,5 +66,8 @@ export default {
 .btnbox {
   float: right;
   margin-bottom: 10px;
+  /deep/button {
+    margin-right: 10px;
+  }
 }
 </style>

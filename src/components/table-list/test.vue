@@ -33,31 +33,36 @@ export default {
       tableData: {
         columns: [
           {
+            title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            slots: { title: 'customTitle' },
-            scopedSlots: { customRender: 'name' }
+            width: 300
           },
           {
             title: 'Age',
             dataIndex: 'age',
-            key: 'age'
+            key: 'age',
+            width: 300
           },
           {
             title: 'Address',
             dataIndex: 'address',
-            key: 'address'
+            key: 'address',
+            width: 300
           },
           {
             title: 'Tags',
             key: 'tags',
             dataIndex: 'tags',
-            scopedSlots: { customRender: 'tags' }
+            scopedSlots: { customRender: 'tags' },
+            width: 300
           },
           {
             title: 'Action',
             key: 'action',
-            scopedSlots: { customRender: 'action' }
+            scopedSlots: { customRender: 'action' },
+            width: 150,
+            fixed: 'right'
           }
         ],
         data: {}
