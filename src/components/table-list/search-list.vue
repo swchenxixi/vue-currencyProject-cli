@@ -211,13 +211,13 @@ export default {
       this.advanced = !this.advanced;
     },
     search() {
-      this.changeTable('search', this.searchVal);
+      this.changeTable(this.searchVal);
     },
     reset() {
       this.searchVal = JSON.parse(JSON.stringify(this.oldSearch));
       this.daterange = this.oldDateRange;
       this.dates = this.oldDate;
-      this.changeTable('search', this.searchVal);
+      this.changeTable(this.searchVal);
     },
     changeDateRange(date) {
       this.daterange = date;

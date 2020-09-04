@@ -110,14 +110,7 @@ export default {
           id: 1104
         }
       ],
-      queryParam: {
-        pageIndex: 1,
-        pageSize: 10,
-        name: '',
-        dateval: '',
-        selectval: '',
-        inputval2: ''
-      },
+      form: {},
       pageIndex: 0,
       pageSize: 0,
       total: 0
@@ -125,7 +118,7 @@ export default {
   },
   methods: {
     async getData() {
-      const res = await getTableData(this.queryParam);
+      const res = await getTableData(this.form);
       const { records, pageIndex, pageSize, total } = res.data;
       this.tableData.data = records;
       this.pageIndex = pageIndex;
@@ -138,15 +131,8 @@ export default {
     btnAction(records) {
       console.log(records);
     },
-    changeTable(type, datas) {
-      if (type === 'table') {
-        this.queryParam.pageIndex = datas.current;
-        this.queryParam.pageSize = datas.pageSize;
-      } else if (type === 'search') {
-        for (let key in datas) {
-          this.queryParam[key] = datas[key];
-        }
-      }
+    changeTable(datas) {
+      this.queryParam = { ...this.queryParam, ...datas };
       this.getData();
     }
   }

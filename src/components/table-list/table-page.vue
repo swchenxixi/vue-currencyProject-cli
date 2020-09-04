@@ -48,7 +48,7 @@ export default {
   methods: {
     initTable() {},
     handleTableChange(page) {
-      this.changeTable('table', page);
+      this.changeTable(page);
     },
     onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys;
