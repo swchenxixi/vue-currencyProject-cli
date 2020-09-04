@@ -8,7 +8,7 @@
 
     <a-table
       :columns="tableData.columns"
-      :data-source="tableData.data.data"
+      :data-source="tableData.data"
       :pagination="pagination"
       :row-selection="rowSelection"
       @change="handleTableChange"
@@ -48,7 +48,7 @@ export default {
   methods: {
     initTable() {},
     handleTableChange(page) {
-      this.changeTable('table', page);
+      this.changeTable(page);
     },
     onSelectChange(selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys;

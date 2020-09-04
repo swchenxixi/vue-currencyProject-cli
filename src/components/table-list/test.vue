@@ -72,14 +72,14 @@ export default {
           type: 'input',
           label: '输入框',
           value: '',
-          valname: 'age',
+          prop: 'age',
           id: 1101
         },
         {
-          type: 'date',
+          type: 'daterange',
           label: '时间范围',
           value: ['2020-09-01', '2020-09-02'],
-          valname: 'dateval',
+          prop: 'daterangeval',
           id: 1102
         },
         {
@@ -99,38 +99,31 @@ export default {
               id: 202
             }
           ],
-          valname: 'selectval',
+          prop: 'selectval',
           id: 1103
         },
         {
-          type: 'input',
-          label: '输入框',
-          value: '',
-          valname: 'inputval2',
+          type: 'date',
+          label: '时间',
+          value: '2020-09-04',
+          prop: 'dateval',
           id: 1104
         }
       ],
-      queryParam: {
-        pageIndex: 1,
-        pageSize: 10,
-        name: '',
-        dateval: '',
-        selectval: '',
-        inputval2: ''
-      },
+      form: {},
       pageIndex: 0,
       pageSize: 0,
       total: 0
     };
   },
   methods: {
-    getData() {
-      getTableData(this.queryParam).then(res => {
-        this.tableData.data = res.data;
-        this.pageIndex = res.data.pageIndex;
-        this.pageSize = res.data.pageSize;
-        this.total = res.data.total;
-      });
+    async getData() {
+      const res = await getTableData(this.form);
+      const { records, pageIndex, pageSize, total } = res.data;
+      this.tableData.data = records;
+      this.pageIndex = pageIndex;
+      this.pageSize = pageSize;
+      this.total = total;
     },
     tableAction(record) {
       console.log(record);
@@ -138,15 +131,8 @@ export default {
     btnAction(records) {
       console.log(records);
     },
-    changeTable(type, datas) {
-      if (type === 'table') {
-        this.queryParam.pageIndex = datas.current;
-        this.queryParam.pageSize = datas.pageSize;
-      } else if (type === 'search') {
-        for (let key in datas) {
-          this.queryParam[key] = datas[key];
-        }
-      }
+    changeTable(datas) {
+      this.queryParam = { ...this.queryParam, ...datas };
       this.getData();
     }
   }
