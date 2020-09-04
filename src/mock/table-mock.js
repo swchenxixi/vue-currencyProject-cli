@@ -5,7 +5,7 @@ Mock.mock('/api/table/getTableData', 'post', () => {
     message: '查询成功',
     code: 200,
     data: {
-      data: [
+      records: [
         {
           id: 101,
           key: 1,

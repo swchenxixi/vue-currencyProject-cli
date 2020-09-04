@@ -8,7 +8,7 @@
 
     <a-table
       :columns="tableData.columns"
-      :data-source="tableData.data.data"
+      :data-source="tableData.data"
       :pagination="pagination"
       :row-selection="rowSelection"
       @change="handleTableChange"

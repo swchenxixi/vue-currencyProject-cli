@@ -124,13 +124,13 @@ export default {
     };
   },
   methods: {
-    getData() {
-      getTableData(this.queryParam).then(res => {
-        this.tableData.data = res.data;
-        this.pageIndex = res.data.pageIndex;
-        this.pageSize = res.data.pageSize;
-        this.total = res.data.total;
-      });
+    async getData() {
+      const res = await getTableData(this.queryParam);
+      const { records, pageIndex, pageSize, total } = res.data;
+      this.tableData.data = records;
+      this.pageIndex = pageIndex;
+      this.pageSize = pageSize;
+      this.total = total;
     },
     tableAction(record) {
       console.log(record);
@@ -139,7 +139,6 @@ export default {
       console.log(records);
     },
     changeTable(type, datas) {
-      console.log(datas);
       if (type === 'table') {
         this.queryParam.pageIndex = datas.current;
         this.queryParam.pageSize = datas.pageSize;
