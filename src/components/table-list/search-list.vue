@@ -7,12 +7,12 @@
             <a-col :md="8" v-for="item in searchData" :key="item.id">
               <a-form-item :label="item.label">
                 <a-input
-                  v-model="searchVal[item.valname]"
+                  v-model="searchVal[item.prop]"
                   placeholder
                   v-if="item.type == 'input'"
                 />
                 <a-select
-                  v-model="searchVal[item.valname]"
+                  v-model="searchVal[item.prop]"
                   placeholder="请选择"
                   default-value="200"
                   v-else-if="item.type == 'select'"
@@ -51,12 +51,12 @@
             >
               <a-form-item :label="item.label">
                 <a-input
-                  v-model="searchVal[item.valname]"
+                  v-model="searchVal[item.prop]"
                   placeholder
                   v-if="item.type == 'input'"
                 />
                 <a-select
-                  v-model="searchVal[item.valname]"
+                  v-model="searchVal[item.prop]"
                   placeholder="请选择"
                   default-value="0"
                   v-else-if="item.type == 'select'"
@@ -94,12 +94,12 @@
               >
                 <a-form-item :label="item.label">
                   <a-input
-                    v-model="searchVal[item.valname]"
+                    v-model="searchVal[item.prop]"
                     placeholder
                     v-if="item.type == 'input'"
                   />
                   <a-select
-                    v-model="searchVal[item.valname]"
+                    v-model="searchVal[item.prop]"
                     placeholder="请选择"
                     default-value="0"
                     v-else-if="item.type == 'select'"
@@ -174,9 +174,9 @@ export default {
     this.searchData.map(obj => {
       if (obj.value != '') {
         if (obj.type == 'select') {
-          searchVal[obj.valname] = obj.value[0].id;
+          searchVal[obj.prop] = obj.value[0].id;
         } else {
-          searchVal[obj.valname] = obj.value;
+          searchVal[obj.prop] = obj.value;
           if (obj.type == 'daterange') {
             obj.value.map(dateobj => {
               daterange.push(moment(dateobj));
@@ -189,7 +189,7 @@ export default {
           }
         }
       } else {
-        searchVal[obj.valname] = '';
+        searchVal[obj.prop] = '';
       }
     });
 

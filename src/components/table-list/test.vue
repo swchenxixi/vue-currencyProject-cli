@@ -72,14 +72,14 @@ export default {
           type: 'input',
           label: '输入框',
           value: '',
-          valname: 'age',
+          prop: 'age',
           id: 1101
         },
         {
           type: 'daterange',
           label: '时间范围',
           value: ['2020-09-01', '2020-09-02'],
-          valname: 'daterangeval',
+          prop: 'daterangeval',
           id: 1102
         },
         {
@@ -99,14 +99,14 @@ export default {
               id: 202
             }
           ],
-          valname: 'selectval',
+          prop: 'selectval',
           id: 1103
         },
         {
           type: 'date',
           label: '时间',
           value: '2020-09-04',
-          valname: 'dateval',
+          prop: 'dateval',
           id: 1104
         }
       ],
