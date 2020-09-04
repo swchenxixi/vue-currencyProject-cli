@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: '/test',
     name: 'Test',
     component: () => import('@/views/test')
@@ -31,6 +30,11 @@ export default [
     path: '/user-add',
     name: 'UserAdd',
     component: () => import('@/views/user/user-add')
+  },
+  {
+    path: '/role-manage',
+    name: 'roleManage',
+    component: () => import('@/views/role')
   },
   {
     path: '*',

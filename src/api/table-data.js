@@ -8,5 +8,6 @@ async function getTableData(params) {
   let res = await axios.post('/api/table/getTableData', params);
   return res.data;
 }
-
-export { getTableData };
+export {
+  getTableData,
+};
