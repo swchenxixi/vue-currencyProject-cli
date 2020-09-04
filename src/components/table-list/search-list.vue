@@ -25,14 +25,20 @@
                   >
                 </a-select>
                 <a-range-picker
-                  v-if="item.type === 'date'"
+                  v-if="item.type === 'daterange'"
                   :default-value="[
                     moment(searchVal.dateval[0], dateFormat),
                     moment(searchVal.dateval[1], dateFormat)
                   ]"
-                  v-model="dates"
+                  v-model="daterange"
                   :format="dateFormat"
+                  @change="changeDateRange"
+                />
+                <a-date-picker
                   @change="changeDate"
+                  v-if="item.type === 'date'"
+                  v-model="dates"
+                  :default-value="moment(item.value)"
                 />
               </a-form-item>
             </a-col>
@@ -63,14 +69,20 @@
                   >
                 </a-select>
                 <a-range-picker
-                  v-if="item.type === 'date'"
+                  v-if="item.type === 'daterange'"
                   :default-value="[
                     moment(searchVal.dateval[0], dateFormat),
                     moment(searchVal.dateval[1], dateFormat)
                   ]"
-                  v-model="dates"
+                  v-model="daterange"
                   :format="dateFormat"
+                  @change="changeDateRange"
+                />
+                <a-date-picker
                   @change="changeDate"
+                  v-if="item.type === 'date'"
+                  v-model="dates"
+                  :default-value="moment(item.value)"
                 />
               </a-form-item>
             </a-col>
@@ -100,14 +112,20 @@
                     >
                   </a-select>
                   <a-range-picker
-                    v-if="item.type === 'date'"
+                    v-if="item.type === 'daterange'"
                     :default-value="[
                       moment(searchVal.dateval[0], dateFormat),
                       moment(searchVal.dateval[1], dateFormat)
                     ]"
-                    v-model="dates"
+                    v-model="daterange"
                     :format="dateFormat"
+                    @change="changeDateRange"
+                  />
+                  <a-date-picker
                     @change="changeDate"
+                    v-if="item.type === 'date'"
+                    v-model="dates"
+                    :default-value="moment(item.value)"
                   />
                 </a-form-item>
               </a-col>
@@ -139,6 +157,7 @@ export default {
     AForm: Form,
     AFormItem: Form.Item,
     ARangePicker: DatePicker.RangePicker,
+    ADatePicker: DatePicker,
     AInput: Input
   },
   props: {
@@ -148,19 +167,25 @@ export default {
   },
   data() {
     let searchVal = {};
-    let dates = [];
-    let oldDate = [];
+    let daterange = [];
+    let oldDateRange = [];
+    let dates = '';
+    let oldDate = '';
     this.searchData.map(obj => {
       if (obj.value != '') {
         if (obj.type == 'select') {
           searchVal[obj.valname] = obj.value[0].id;
         } else {
           searchVal[obj.valname] = obj.value;
-          if (obj.type == 'date') {
+          if (obj.type == 'daterange') {
             obj.value.map(dateobj => {
-              dates.push(moment(dateobj));
-              oldDate.push(moment(dateobj));
+              daterange.push(moment(dateobj));
+              oldDateRange.push(moment(dateobj));
             });
+          }
+          if (obj.type == 'date') {
+            dates = moment(obj.value);
+            oldDate = moment(obj.value);
           }
         }
       } else {
@@ -175,7 +200,9 @@ export default {
       searchVal: searchVal,
       oldSearch: JSON.parse(JSON.stringify(searchVal)),
       formatDate,
+      daterange: daterange,
       dates: dates,
+      oldDateRange: oldDateRange,
       oldDate: oldDate
     };
   },
@@ -188,16 +215,22 @@ export default {
     },
     reset() {
       this.searchVal = JSON.parse(JSON.stringify(this.oldSearch));
+      this.daterange = this.oldDateRange;
       this.dates = this.oldDate;
       this.changeTable('search', this.searchVal);
     },
-    changeDate(date) {
-      this.dates = date;
+    changeDateRange(date) {
+      this.daterange = date;
       let date1 = new Date(date[0]._d);
       let date2 = new Date(date[1]._d);
       let nowdate1 = formatDate(date1, 'yyyy-mm-dd');
       let nowdate2 = formatDate(date2, 'yyyy-mm-dd');
-      this.searchVal.dateval = [nowdate1, nowdate2];
+      this.searchVal.daterangeval = [nowdate1, nowdate2];
+    },
+    changeDate(date) {
+      console.log(date);
+      this.dates = date;
+      this.searchVal.dateval = formatDate(date._d, 'yyyy-mm-dd');
     }
   }
 };
@@ -213,5 +246,9 @@ export default {
 }
 .ant-form-item {
   margin-bottom: 0;
+}
+/deep/.ant-form-item label {
+  width: 80px;
+  display: inline-block;
 }
 </style>

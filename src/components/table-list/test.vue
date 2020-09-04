@@ -76,10 +76,10 @@ export default {
           id: 1101
         },
         {
-          type: 'date',
+          type: 'daterange',
           label: '时间范围',
           value: ['2020-09-01', '2020-09-02'],
-          valname: 'dateval',
+          valname: 'daterangeval',
           id: 1102
         },
         {
@@ -103,10 +103,10 @@ export default {
           id: 1103
         },
         {
-          type: 'input',
-          label: '输入框',
-          value: '',
-          valname: 'inputval2',
+          type: 'date',
+          label: '时间',
+          value: '2020-09-04',
+          valname: 'dateval',
           id: 1104
         }
       ],
@@ -139,6 +139,7 @@ export default {
       console.log(records);
     },
     changeTable(type, datas) {
+      console.log(datas);
       if (type === 'table') {
         this.queryParam.pageIndex = datas.current;
         this.queryParam.pageSize = datas.pageSize;
