@@ -24,7 +24,8 @@ Mock.mock('/api/permissions', 'get', () => {
     message: '查询成功',
     code: 200,
     data: {
-      allAuth: [{
+      allAuth: [
+        {
           action: 'online:goGenerateCode',
           describe: '代码生成按钮',
           type: '1',
@@ -61,7 +62,8 @@ Mock.mock('/api/permissions', 'get', () => {
           status: '1'
         }
       ],
-      auth: [{
+      auth: [
+        {
           action: 'online:goGenerateCode',
           describe: '代码生成按钮',
           type: '1'
@@ -72,7 +74,8 @@ Mock.mock('/api/permissions', 'get', () => {
           type: '1'
         }
       ],
-      menus: [{
+      menus: [
+        {
           redirect: null,
           path: '/dashboard/analysis',
           component: 'dashboard/Analysis',
@@ -91,7 +94,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/report',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/report/ArchivesStatisticst',
               component: 'jeecg/report/ArchivesStatisticst',
               route: '1',
@@ -142,7 +146,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/big/screen',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '45f8908389f7804a8bbcc6c13a433171',
               component: 'layouts/IframePageView',
               route: '1',
@@ -150,9 +155,11 @@ Mock.mock('/api/permissions', 'get', () => {
                 keepAlive: false,
                 internalOrExternal: true,
                 title: '生产销售监控',
-                url: "{{ window._CONFIG['domianURL'] }}/big/screen/templat/index1"
+                url:
+                  "{{ window._CONFIG['domianURL'] }}/big/screen/templat/index1"
               },
-              name: "{{ window._CONFIG['domianURL'] }}-big-screen-templat-index1",
+              name:
+                "{{ window._CONFIG['domianURL'] }}-big-screen-templat-index1",
               id: '1205098241075453953'
             },
             {
@@ -163,9 +170,11 @@ Mock.mock('/api/permissions', 'get', () => {
                 keepAlive: false,
                 internalOrExternal: false,
                 title: '智慧物流监控',
-                url: "{{ window._CONFIG['domianURL'] }}/big/screen/templat/index2"
+                url:
+                  "{{ window._CONFIG['domianURL'] }}/big/screen/templat/index2"
               },
-              name: "{{ window._CONFIG['domianURL'] }}-big-screen-templat-index2",
+              name:
+                "{{ window._CONFIG['domianURL'] }}-big-screen-templat-index2",
               id: '1205306106780364802'
             }
           ],
@@ -183,7 +192,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/isystem',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/isystem/user',
               component: 'system/UserList',
               route: '1',
@@ -342,7 +352,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/online',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/online/cgform',
               component: 'modules/online/cgform/OnlCgformHeadList',
               route: '1',
@@ -482,7 +493,8 @@ Mock.mock('/api/permissions', 'get', () => {
             },
             {
               path: '/online/cgformInnerTableList/:code',
-              component: 'modules/online/cgform/auto/innerTable/OnlCgformInnerTableList',
+              component:
+                'modules/online/cgform/auto/innerTable/OnlCgformInnerTableList',
               route: '1',
               hidden: true,
               meta: {
@@ -508,11 +520,13 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/dashboard3',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/monitor',
               component: 'layouts/RouteView',
               route: '1',
-              children: [{
+              children: [
+                {
                   path: '/monitor/redis/info',
                   component: 'modules/monitor/RedisInfo',
                   route: '1',
@@ -670,7 +684,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/message',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/modules/message/sysMessageTemplateList',
               component: 'modules/message/SysMessageTemplateList',
               route: '1',
@@ -721,7 +736,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/jeecg',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/jeecg/SelectDemo',
               component: 'jeecg/SelectDemo',
               route: '1',
@@ -734,7 +750,8 @@ Mock.mock('/api/permissions', 'get', () => {
               id: '9a90363f216a6a08f32eecb3f0bf12a3'
             },
             {
-              path: '/online/cgformInnerTableList/56efb74326e74064b60933f6f8af30ea',
+              path:
+                '/online/cgformInnerTableList/56efb74326e74064b60933f6f8af30ea',
               component: '111111',
               route: '0',
               meta: {
@@ -742,7 +759,8 @@ Mock.mock('/api/permissions', 'get', () => {
                 internalOrExternal: false,
                 title: 'online订单管理'
               },
-              name: 'online-cgformInnerTableList-56efb74326e74064b60933f6f8af30ea',
+              name:
+                'online-cgformInnerTableList-56efb74326e74064b60933f6f8af30ea',
               id: '1260922988733255681'
             },
             {
@@ -1001,7 +1019,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/exception',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/exception/403',
               component: 'exception/403',
               route: '1',
@@ -1052,7 +1071,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/profile',
           component: 'layouts/RouteView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/profile/basic',
               component: 'profile/basic/Index',
               route: '1',
@@ -1091,7 +1111,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/result',
           component: 'layouts/PageView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/result/success',
               component: 'result/Success',
               route: '1',
@@ -1130,7 +1151,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/list',
           component: 'layouts/PageView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/list/query-list',
               component: 'list/TableList',
               route: '1',
@@ -1218,7 +1240,8 @@ Mock.mock('/api/permissions', 'get', () => {
               path: '/list/search',
               component: 'list/search/SearchLayout',
               route: '1',
-              children: [{
+              children: [
+                {
                   path: '/list/search/article',
                   component: 'list/TableList',
                   route: '1',
@@ -1278,7 +1301,8 @@ Mock.mock('/api/permissions', 'get', () => {
           path: '/form',
           component: 'layouts/PageView',
           route: '1',
-          children: [{
+          children: [
+            {
               path: '/form/step-form',
               component: 'form/stepForm/StepForm',
               route: '1',
@@ -1318,7 +1342,8 @@ Mock.mock('/api/permissions', 'get', () => {
           component: 'layouts/RouteView',
           route: '1',
           hidden: true,
-          children: [{
+          children: [
+            {
               path: '/account/center',
               component: 'account/center/Index',
               route: '1',
@@ -1334,7 +1359,8 @@ Mock.mock('/api/permissions', 'get', () => {
               path: '/account/settings/Index',
               component: 'account/settings/Index',
               route: '1',
-              children: [{
+              children: [
+                {
                   path: '/account/settings/security',
                   component: 'account/settings/Security',
                   route: '1',
