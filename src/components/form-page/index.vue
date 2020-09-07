@@ -5,10 +5,10 @@
     </div>
     <div class="btnbox">
       <a-button type="primary" @click="onSubmitForm">
-        Create
+        保存
       </a-button>
       <a-button style="margin-left: 10px;" @click="onCancelForm">
-        Cancel
+        取消
       </a-button>
     </div>
   </div>

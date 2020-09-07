@@ -8,7 +8,12 @@
 
     <a-table
       :columns="tableData.columns"
-      :data-source="tableData.data"
+      :data-source="[...tableData.data]"
+      :rowKey="
+        (record, index) => {
+          return index;
+        }
+      "
       :pagination="pagination"
       :row-selection="rowSelection"
       @change="handleTableChange"

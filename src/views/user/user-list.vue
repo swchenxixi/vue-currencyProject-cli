@@ -83,11 +83,11 @@ export default {
   },
   methods: {
     async getData() {
-      let res = await getUserInfo(this.queryParam);
-      let records = res.data.records;
+      const res = await getUserInfo(this.queryParam);
+      const { records, current, size, total } = res.data;
+      console.log(res.data);
       let rolesName = [];
       let rolesId = [];
-      console.log(records);
       records.map(obj => {
         obj.roles.map(roleobj => {
           rolesName.push(roleobj.name);
@@ -96,12 +96,10 @@ export default {
         obj['rolesName'] = rolesName.join(',');
         obj['rolesId'] = rolesId.join(',');
       });
-      console.log(res);
-      console.log(this.tableData.data);
-      this.tableData.data = res.data.records;
-      this.pageIndex = res.data.current;
-      this.pageSize = res.data.size;
-      this.total = res.data.total;
+      this.tableData.data = records;
+      this.pageIndex = current;
+      this.pageSize = size;
+      this.total = total;
     },
     amend(record) {
       console.log(record);
@@ -110,16 +108,8 @@ export default {
     btnAction(records) {
       console.log(records);
     },
-    changeTable(type, datas) {
-      console.log(datas);
-      if (type === 'table') {
-        this.queryParam.pageIndex = datas.current;
-        this.queryParam.pageSize = datas.pageSize;
-      } else if (type === 'search') {
-        for (let key in datas) {
-          this.queryParam[key] = datas[key];
-        }
-      }
+    changeTable(datas) {
+      this.queryParam = { ...this.queryParam, ...datas };
       this.getData();
     },
     add(record) {

@@ -162,7 +162,6 @@ export default {
   },
   props: {
     searchData: Array,
-    queryParam: Object,
     changeTable: Function
   },
   data() {
@@ -228,7 +227,6 @@ export default {
       this.searchVal.daterangeval = [nowdate1, nowdate2];
     },
     changeDate(date) {
-      console.log(date);
       this.dates = date;
       this.searchVal.dateval = formatDate(date._d, 'yyyy-mm-dd');
     }

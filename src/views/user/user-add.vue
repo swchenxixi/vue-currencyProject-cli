@@ -124,7 +124,7 @@ export default {
       this.$refs.form.validate(valid => {
         console.log(valid);
         if (valid) {
-          alert('submit!');
+          //调保存接口
         } else {
           console.log('error submit!!');
           // return false;
