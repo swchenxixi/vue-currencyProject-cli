@@ -6,7 +6,7 @@ Mock.mock('/sys/user/page', {
     'records|4': [
       {
         'id|+1': 100,
-        username: '@name',
+        username: '@first',
         name: '@cname',
         'mobile|1': [
           '13531544954',

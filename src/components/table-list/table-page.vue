@@ -12,7 +12,7 @@
       :pagination="pagination"
       :row-selection="rowSelection"
       @change="handleTableChange"
-      :scroll="{ x: 1500, y: 400 }"
+      :scroll="{ x: 600 }"
     >
       <span slot="action" slot-scope="text, record">
         <slot name="action" :record="record" />
