@@ -13,14 +13,22 @@
       <a-button @click="btnAction(record)">操作2</a-button>
     </template>
     <template slot="action" slot-scope="record">
-      <a @click="tableAction(record)">修改</a>
-      <a @click="tableAction(record)">删除</a>
+      <a-button type="primary" size="small" @click="editRole(record)">
+        修改
+      </a-button>
+      <a-button type="danger" size="small" @click="deleteRole(record)">
+        删除
+      </a-button>
     </template>
   </table-list>
 </template>
 <script>
 import TableList from '@/components/table-list/';
-import { getRoleTableData } from '@/api/role-data.js';
+import {
+  getRoleTableData,
+  updateRoleInfo,
+  deleteRoleInfo
+} from '@/api/role-data.js';
 export default {
   components: {
     TableList
@@ -119,15 +127,29 @@ export default {
   methods: {
     getData() {
       getRoleTableData(this.queryParam).then(res => {
-        console.log('111', res);
         this.tableData.data = res.data.records;
         this.pageIndex = res.data.current;
         this.pageSize = res.data.size;
         this.total = res.data.total;
       });
     },
-    tableAction(record) {
-      console.log(record);
+    editRole(record) {
+      updateRoleInfo(record.record.record.id).then(res => {
+        this.$notification.open({
+          message: 'success',
+          description: res.message,
+          icon: <a-icon type="smile" style="color: #108ee9" />
+        });
+      });
+    },
+    deleteRole(record) {
+      deleteRoleInfo(record.record.record.id).then(res => {
+        this.$notification.open({
+          message: 'success',
+          description: res.message,
+          icon: <a-icon type="smile" style="color: #108ee9" />
+        });
+      });
     },
     btnAction(records) {
       console.log(records);

@@ -10,7 +10,8 @@ import {
   Select,
   Dropdown,
   Tabs,
-  Avatar
+  Avatar,
+  Notification
 } from 'ant-design-vue';
 
 Vue.use(Button)
@@ -22,4 +23,5 @@ Vue.use(Button)
   .use(Select)
   .use(Dropdown)
   .use(Tabs)
-  .use(Avatar);
+  .use(Avatar)
+  .use(Notification);

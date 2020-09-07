@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-Mock.mock('/sys/roles/page', {
+Mock.mock('/sys/roles/page', 'get', {
   code: 200,
   message: '操作成功',
   data: {
@@ -16,4 +16,12 @@ Mock.mock('/sys/roles/page', {
     current: 1,
     pages: 1
   }
+});
+Mock.mock(/\/sys\/roles[\s\S]*?/, 'delete', {
+  code: 200,
+  message: '删除成功'
+});
+Mock.mock(/\/sys\/roles[\s\S]*?/, 'put', {
+  code: 200,
+  message: '修改成功'
 });
