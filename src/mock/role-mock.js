@@ -25,3 +25,15 @@ Mock.mock(/\/sys\/roles[\s\S]*?/, 'put', {
   code: 200,
   message: '修改成功'
 });
+Mock.mock('/sys/roles', {
+  code: 200,
+  message: '操作成功',
+  'data|1-20': [
+    {
+      'id|+1': 100,
+      name: '@cname',
+      code: '@string(3)',
+      description: '@cparagraph()'
+    }
+  ]
+});

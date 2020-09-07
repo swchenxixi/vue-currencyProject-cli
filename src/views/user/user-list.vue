@@ -14,8 +14,7 @@
         <a-button @click="btnAction(record)">批量删除</a-button>
       </template>
       <template slot="action" slot-scope="record">
-        <a @click="tableAction(record)">操作1</a>
-        <a @click="tableAction(record)">操作2</a>
+        <a @click="amend(record)">修改</a>
       </template>
     </table-list>
   </div>
@@ -104,8 +103,9 @@ export default {
       this.pageSize = res.data.size;
       this.total = res.data.total;
     },
-    tableAction(record) {
+    amend(record) {
       console.log(record);
+      this.$router.push({ path: '/user-add', params: { record: record } });
     },
     btnAction(records) {
       console.log(records);

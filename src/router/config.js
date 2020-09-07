@@ -41,5 +41,10 @@ export default [
     path: '*',
     name: '404',
     component: () => import('@/views/404')
+  },
+  {
+    path: '/cs',
+    name: 'cs',
+    component: () => import('@/components/form-page/test')
   }
 ];
