@@ -11,7 +11,7 @@
     >
       <template slot="btnbox" slot-scope="record">
         <a-button @click="add(record)">新增</a-button>
-        <a-button @click="btnAction(record)">批量删除</a-button>
+        <!-- <a-button @click="btnAction(record)">批量删除</a-button> -->
       </template>
       <template slot="action" slot-scope="record">
         <a @click="amend(record)">修改</a>
@@ -102,8 +102,7 @@ export default {
       this.total = total;
     },
     amend(record) {
-      console.log(record);
-      this.$router.push({ path: '/user-add', params: { record: record } });
+      this.$router.push({ name: 'UserAdd', params: { records: record } });
     },
     btnAction(records) {
       console.log(records);
@@ -115,9 +114,10 @@ export default {
     add(record) {
       //切换页面
       console.log(record);
+      this.$router.push({ name: 'UserAdd' });
     }
   }
 };
 </script>
 
-<style></style>
+<style lang="less" scoped></style>
