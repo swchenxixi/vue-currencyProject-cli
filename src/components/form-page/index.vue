@@ -7,7 +7,7 @@
       <a-button type="primary" @click="onSubmitForm">
         Create
       </a-button>
-      <a-button style="margin-left: 10px;">
+      <a-button style="margin-left: 10px;" @click="onCancelForm">
         Cancel
       </a-button>
     </div>
@@ -16,13 +16,21 @@
 <script>
 export default {
   props: {
-    onSubmit: Function
+    onSubmit: Function,
+    onCancel: Function
   },
   methods: {
     onSubmitForm() {
       this.onSubmit();
+    },
+    onCancelForm() {
+      this.onCancel();
     }
   }
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.btnbox {
+  padding-left: 16.66666667%;
+}
+</style>

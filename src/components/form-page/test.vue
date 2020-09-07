@@ -1,5 +1,5 @@
 <template>
-  <form-page :onSubmit="onSubmit">
+  <form-page :onSubmit="onSubmit" :onCancel="onCancel">
     <template slot="formBox">
       <a-form-model
         :model="form"
@@ -137,6 +137,9 @@ export default {
   methods: {
     onSubmit() {
       console.log(this.form);
+    },
+    onCancel() {
+      console.log('取消操作');
     }
   }
 };
