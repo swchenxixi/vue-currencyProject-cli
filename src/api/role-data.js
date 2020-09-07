@@ -1,6 +1,7 @@
 import axios from 'axios';
+import '@/mock/role-mock.js';
 async function getRoleTableData(params) {
-  let res = await axios.get('/sys/roles', params);
+  let res = await axios.get('/sys/roles/page', params);
   return res.data;
 };
 async function addRole(params) {
@@ -19,7 +20,7 @@ async function updateRoleInfo(params) {
   let res = await axios.put(`/sys/roles/${params}`);
   return res.data;
 };
-async function updateRoleInfo(params) {
+async function deleteRoleInfo(params) {
   let res = await axios.delete(`/sys/roles/${params}`);
   return res.data;
 };
@@ -28,5 +29,6 @@ export {
   addRole,
   queryRoleInfo,
   queryById,
-  updateRoleInfo
+  updateRoleInfo,
+  deleteRoleInfo
 };

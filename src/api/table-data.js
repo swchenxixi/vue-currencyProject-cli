@@ -1,5 +1,4 @@
 import axios from 'axios';
-import '@/mock/table-mock.js';
 async function getTableData(params) {
   //   const token = localStorage.getItem('token');
   //   if (!token) {

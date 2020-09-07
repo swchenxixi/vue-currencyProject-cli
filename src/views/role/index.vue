@@ -9,18 +9,18 @@
     :changeTable="changeTable"
   >
     <template slot="btnbox" slot-scope="record">
-      <a-button @click="btnAction(record)">操作1</a-button>
+      <a-button @click="btnAction(record)">添加角色</a-button>
       <a-button @click="btnAction(record)">操作2</a-button>
     </template>
     <template slot="action" slot-scope="record">
-      <a @click="tableAction(record)">操作1</a>
-      <a @click="tableAction(record)">操作2</a>
+      <a @click="tableAction(record)">修改</a>
+      <a @click="tableAction(record)">删除</a>
     </template>
   </table-list>
 </template>
 <script>
 import TableList from '@/components/table-list/';
-import { getTableData } from '@/api/table-data.js';
+import { getRoleTableData } from '@/api/role-data.js';
 export default {
   components: {
     TableList
@@ -39,22 +39,15 @@ export default {
             width: 300
           },
           {
-            title: 'Age',
-            dataIndex: 'age',
-            key: 'age',
+            title: 'Code',
+            dataIndex: 'ccode',
+            key: 'ccode',
             width: 300
           },
           {
-            title: 'Address',
-            dataIndex: 'address',
-            key: 'address',
-            width: 300
-          },
-          {
-            title: 'Tags',
-            key: 'tags',
-            dataIndex: 'tags',
-            scopedSlots: { customRender: 'tags' },
+            title: 'escription',
+            dataIndex: 'description',
+            key: 'description',
             width: 300
           },
           {
@@ -125,10 +118,11 @@ export default {
   },
   methods: {
     getData() {
-      getTableData(this.queryParam).then(res => {
-        this.tableData.data = res.data;
-        this.pageIndex = res.data.pageIndex;
-        this.pageSize = res.data.pageSize;
+      getRoleTableData(this.queryParam).then(res => {
+        console.log('111', res);
+        this.tableData.data = res.data.records;
+        this.pageIndex = res.data.current;
+        this.pageSize = res.data.size;
         this.total = res.data.total;
       });
     },
