@@ -35,14 +35,12 @@ export default {
           {
             title: 'Name',
             dataIndex: 'name',
-            key: 'name',
-            width: 300
+            key: 'name'
           },
           {
             title: 'Age',
             dataIndex: 'age',
-            key: 'age',
-            width: 300
+            key: 'age'
           },
           {
             title: 'Address',
