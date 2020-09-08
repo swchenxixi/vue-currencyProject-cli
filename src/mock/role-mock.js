@@ -12,7 +12,7 @@ Mock.mock('/sys/roles/page', 'get', {
       }
     ],
     total: 4,
-    size: 10,
+    size: 2,
     current: 1,
     pages: 1
   }
@@ -25,14 +25,14 @@ Mock.mock(/\/sys\/roles[\s\S]*?/, 'put', {
   code: 200,
   message: '修改成功'
 });
-Mock.mock('/sys/roles', {
+Mock.mock('/sys/roles', 'post', {
   code: 200,
-  message: '操作成功',
-  'data|1-20': [
+  message: '添加成功',
+  data: [
     {
-      'id|+1': 100,
+      'id|+1': 200,
       name: '@cname',
-      code: '@string(3)',
+      code: '@string',
       description: '@cparagraph()'
     }
   ]

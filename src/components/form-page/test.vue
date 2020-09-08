@@ -89,35 +89,6 @@ export default {
   },
   data() {
     return {
-      formList: [
-        {
-          label: '表单输入框',
-          type: 'input',
-          value: '',
-          valName: 'inputval'
-        },
-        {
-          label: '表单下拉选择',
-          type: 'select',
-          value: [
-            { value: 101, name: 'option1' },
-            { value: 102, name: 'option2' }
-          ],
-          valName: 'selectval'
-        },
-        {
-          label: '表单时间选择',
-          type: 'date',
-          value: '',
-          valName: 'dateval'
-        },
-        {
-          label: '文本域',
-          type: 'textarea',
-          value: '',
-          valName: 'textarea'
-        }
-      ],
       ids: 0,
       isread: false,
       labelCol: { span: 4 },

@@ -9,8 +9,9 @@
     :changeTable="changeTable"
   >
     <template slot="btnbox" slot-scope="record">
-      <a-button @click="btnAction(record)">添加角色</a-button>
-      <a-button @click="btnAction(record)">操作2</a-button>
+      <a-button type="primary" @click="addRole(record)">
+        添加角色<a-icon type="right" />
+      </a-button>
     </template>
     <template slot="action" slot-scope="record">
       <a-button type="primary" size="small" @click="editRole(record)">
@@ -24,11 +25,7 @@
 </template>
 <script>
 import TableList from '@/components/table-list/';
-import {
-  getRoleTableData,
-  updateRoleInfo,
-  deleteRoleInfo
-} from '@/api/role-data.js';
+import { getRoleTableData, deleteRoleInfo } from '@/api/role-data.js';
 export default {
   components: {
     TableList
@@ -71,10 +68,24 @@ export default {
       searchData: [
         {
           type: 'input',
-          label: '输入框',
+          label: 'ID',
           value: '',
-          valname: 'age',
+          valname: 'id',
           id: 1101
+        },
+        {
+          type: 'input',
+          label: 'Name',
+          value: '',
+          valname: 'name',
+          id: 1104
+        },
+        {
+          type: 'input',
+          label: 'Code',
+          value: '',
+          valname: 'code',
+          id: 1105
         },
         {
           type: 'date',
@@ -102,13 +113,6 @@ export default {
           ],
           valname: 'selectval',
           id: 1103
-        },
-        {
-          type: 'input',
-          label: '输入框',
-          value: '',
-          valname: 'inputval2',
-          id: 1104
         }
       ],
       queryParam: {
@@ -133,15 +137,19 @@ export default {
         this.total = res.data.total;
       });
     },
-    editRole(record) {
-      updateRoleInfo(record.record.record.id).then(res => {
-        this.$notification.open({
-          message: 'success',
-          description: res.message,
-          icon: <a-icon type="smile" style="color: #108ee9" />
-        });
+    addRole() {
+      this.$router.push({
+        name: 'roleAdd'
       });
     },
+    editRole(record) {
+      let params = record.record.record;
+      this.$router.push({
+        name: 'roleEdit',
+        params: { record: params }
+      });
+    },
+
     deleteRole(record) {
       deleteRoleInfo(record.record.record.id).then(res => {
         this.$notification.open({

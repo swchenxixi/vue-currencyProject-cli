@@ -38,6 +38,16 @@ export default [
     component: () => import('@/views/role')
   },
   {
+    path: '/role-edit',
+    name: 'roleEdit',
+    component: () => import('@/views/role/role-edit')
+  },
+  {
+    path: '/role-add',
+    name: 'roleAdd',
+    component: () => import('@/views/role/role-add')
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('@/views/404')
