@@ -48,6 +48,19 @@ export default [
     component: () => import('@/views/role/role-add')
   },
   {
+    path: '/port-list',
+    name: 'PortList',
+    meta: {
+      auth: true
+    },
+    component: () => import('@/views/port/port-list')
+  },
+  {
+    path: '/port-add',
+    name: 'PortAdd',
+    component: () => import('@/views/port/port-add')
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('@/views/404')

@@ -2,7 +2,7 @@
   <a-card>
     <a-form>
       <a-row>
-        <a-col :md="18">
+        <a-col class="maxW">
           <template v-if="searchData.length <= 3">
             <a-col :md="8" v-for="item in searchData" :key="item.id">
               <a-form-item :label="item.label">
@@ -133,7 +133,7 @@
           </template>
         </a-col>
 
-        <a-col :md="6">
+        <a-col class="flex">
           <span class="table-page-search-submitButtons">
             <a-button type="primary" @click="search">查询</a-button>
             <a-button style="margin-left: 8px" @click="reset">重置</a-button>
@@ -248,5 +248,12 @@ export default {
 /deep/.ant-form-item label {
   width: 80px;
   display: inline-block;
+}
+.maxW {
+  max-width: 75%;
+}
+.flex {
+  display: flex;
+  margin-top: 2px;
 }
 </style>
