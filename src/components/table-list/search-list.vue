@@ -27,8 +27,8 @@
                 <a-range-picker
                   v-if="item.type === 'daterange'"
                   :default-value="[
-                    moment(searchVal.dateval[0], dateFormat),
-                    moment(searchVal.dateval[1], dateFormat)
+                    moment(searchVal[item.prop][0], dateFormat),
+                    moment(searchVal[item.prop][1], dateFormat)
                   ]"
                   v-model="daterange"
                   :format="dateFormat"
@@ -71,8 +71,8 @@
                 <a-range-picker
                   v-if="item.type === 'daterange'"
                   :default-value="[
-                    moment(searchVal.dateval[0], dateFormat),
-                    moment(searchVal.dateval[1], dateFormat)
+                    moment(searchVal[item.prop][0], dateFormat),
+                    moment(searchVal[item.prop][1], dateFormat)
                   ]"
                   v-model="daterange"
                   :format="dateFormat"
@@ -114,8 +114,8 @@
                   <a-range-picker
                     v-if="item.type === 'daterange'"
                     :default-value="[
-                      moment(searchVal.dateval[0], dateFormat),
-                      moment(searchVal.dateval[1], dateFormat)
+                      moment(searchVal[item.prop][0], dateFormat),
+                      moment(searchVal[item.prop][1], dateFormat)
                     ]"
                     v-model="daterange"
                     :format="dateFormat"
@@ -181,6 +181,7 @@ export default {
               daterange.push(moment(dateobj));
               oldDateRange.push(moment(dateobj));
             });
+            this.daterangename = obj.prop;
           }
           if (obj.type == 'date') {
             dates = moment(obj.value);
@@ -202,7 +203,8 @@ export default {
       daterange: daterange,
       dates: dates,
       oldDateRange: oldDateRange,
-      oldDate: oldDate
+      oldDate: oldDate,
+      daterangename: ''
     };
   },
   methods: {
@@ -224,7 +226,7 @@ export default {
       let date2 = new Date(date[1]._d);
       let nowdate1 = formatDate(date1, 'yyyy-mm-dd');
       let nowdate2 = formatDate(date2, 'yyyy-mm-dd');
-      this.searchVal.daterangeval = [nowdate1, nowdate2];
+      this.searchVal[this.daterangename] = [nowdate1, nowdate2];
     },
     changeDate(date) {
       this.dates = date;

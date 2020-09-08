@@ -61,6 +61,19 @@ export default [
     component: () => import('@/views/port/port-add')
   },
   {
+    path: '/shipLine-list',
+    name: 'PortList',
+    meta: {
+      auth: true
+    },
+    component: () => import('@/views/shipLine/shipLine-list')
+  },
+  {
+    path: '/shipLine-add',
+    name: 'PortAdd',
+    component: () => import('@/views/shipLine/shipLine-add')
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('@/views/404')

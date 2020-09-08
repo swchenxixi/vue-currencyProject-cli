@@ -1,35 +1,35 @@
 import axios from 'axios';
-import '@/mock/port-mock.js';
+import '@/mock/shipLine-mock.js';
 //获取港口分页数据
-async function getPortData(params) {
+async function getLineData(params) {
   let res = await axios.get('/ship/harbor/page', params);
   return res.data;
 }
 //删除某条港口数据
-async function delPortData(params) {
+async function delLineData(params) {
   let res = await axios.delete(`/ship/harbor/${params}`);
   return res.data;
 }
 //根据id获取港口
-async function getPortDetailData(params) {
+async function getLineDetailData(params) {
   let res = await axios.get(`/ship/harbor/${params}`);
   return res.data;
 }
 //修改港口信息
-async function editPortData(params) {
+async function editLineData(params) {
   let res = await axios.put(`/ship/harbor/${params}`);
   return res.data;
 }
 //添加港口数据
-async function addPortData(params) {
+async function addLineData(params) {
   let res = await axios.post('/ship/harbor', params);
   return res.data;
 }
 
 export {
-  getPortData,
-  delPortData,
-  addPortData,
-  editPortData,
-  getPortDetailData
+  getLineData,
+  delLineData,
+  editLineData,
+  addLineData,
+  getLineDetailData
 };

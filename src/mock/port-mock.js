@@ -1,5 +1,6 @@
 import Mock from 'mockjs';
-Mock.mock('/ship/harbor/page', {
+
+Mock.mock('/ship/harbor/page', 'get', {
   code: 200,
   message: '操作成功',
   data: {
@@ -21,12 +22,31 @@ Mock.mock('/ship/harbor/page', {
   }
 });
 
-Mock.mock(/\/ship\/harbor[\s\S]*?/, {
+Mock.mock(/\/ship\/harbor[\s\S]*?/, 'get', {
+  code: 200,
+  message: '操作成功',
+  data: {
+    address: '@county(true)',
+    'code|8': '@string',
+    'country|1': ['中国', '韩国', '印度', '新加坡', '泰国'],
+    'isDeleted|0-1': 1,
+    'latitude|20-120.1-2': 20,
+    'longitude|20-120.1-2': 20,
+    name: '@cname'
+  }
+});
+
+Mock.mock(/\/ship\/harbor[\s\S]*?/, 'put', {
+  code: 200,
+  message: '修改成功'
+});
+
+Mock.mock(/\/ship\/harbor[\s\S]*?/, 'delete', {
   code: 200,
   message: '删除成功'
 });
 
-Mock.mock('/ship/harbor', {
+Mock.mock('/ship/harbor', 'post', {
   code: 200,
   message: '添加成功'
 });
