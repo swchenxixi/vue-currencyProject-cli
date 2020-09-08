@@ -63,7 +63,7 @@ export default {
             fixed: 'right'
           }
         ],
-        data: {}
+        data: []
       },
       searchData: [
         {
@@ -118,6 +118,7 @@ export default {
     async getData() {
       const res = await getTableData(this.form);
       const { records, pageIndex, pageSize, total } = res.data;
+      console.log(records);
       this.tableData.data = records;
       this.pageIndex = pageIndex;
       this.pageSize = pageSize;
