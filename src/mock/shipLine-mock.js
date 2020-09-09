@@ -25,7 +25,7 @@ Mock.mock('/ship/voyage/page', 'get', {
   }
 });
 
-Mock.mock(/\/ship\/voyage[\s\S]*?/, 'get', {
+Mock.mock(/\/ship\/voyage\/[\d]+?/, 'get', {
   code: 200,
   message: '操作成功',
   data: {
@@ -42,12 +42,12 @@ Mock.mock(/\/ship\/voyage[\s\S]*?/, 'get', {
   }
 });
 
-Mock.mock(/\/ship\/voyage[\s\S]*?/, 'put', {
+Mock.mock(/\/ship\/voyage\/[\d]+?/, 'put', {
   code: 200,
   message: '修改成功'
 });
 
-Mock.mock(/\/ship\/voyage[\s\S]*?/, 'delete', {
+Mock.mock(/\/ship\/voyage\/[\d]+?/, 'delete', {
   code: 200,
   message: '删除成功'
 });

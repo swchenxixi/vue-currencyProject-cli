@@ -25,11 +25,17 @@ async function addPortData(params) {
   let res = await axios.post('/ship/harbor', params);
   return res.data;
 }
+//获取全部港口列表数据
+async function getAllPortData(params) {
+  let res = await axios.get('/ship/harbor', params);
+  return res.data;
+}
 
 export {
   getPortData,
   delPortData,
   addPortData,
   editPortData,
-  getPortDetailData
+  getPortDetailData,
+  getAllPortData
 };
