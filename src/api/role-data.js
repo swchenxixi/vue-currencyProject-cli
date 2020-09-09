@@ -20,4 +20,15 @@ async function deleteRoleInfo(params) {
   let res = await axios.delete(`/sys/roles/${params}`);
   return res.data;
 }
-export { getRoleTableData, addRole, queryById, updateRoleInfo, deleteRoleInfo };
+async function getAllRole() {
+  let res = await axios.get('/sys/roles');
+  return res.data;
+}
+export {
+  getRoleTableData,
+  addRole,
+  queryById,
+  updateRoleInfo,
+  deleteRoleInfo,
+  getAllRole
+};

@@ -8,13 +8,27 @@
         :rules="rules"
         ref="form"
       >
-        <a-form-model-item label="姓名" prop="name">
+        <a-form-model-item label="公司名称" prop="name">
           <a-input v-model="form.name" />
         </a-form-model-item>
-        <a-form-model-item label="Code" prop="code">
-          <a-input v-model="form.code" />
+        <a-form-model-item label="公司地址" prop="address">
+          <a-input v-model="form.address" />
         </a-form-model-item>
-
+        <a-form-model-item label="法人" prop="legalPerson">
+          <a-input v-model="form.legalPerson" />
+        </a-form-model-item>
+        <a-form-model-item label="联系电话" prop="phone">
+          <a-input v-model="form.phone" />
+        </a-form-model-item>
+        <a-form-model-item label="创建时间" prop="createTime">
+          <a-date-picker
+            v-model="form.createTime"
+            show-time
+            type="date"
+            placeholder="Pick a date"
+            style="width: 100%;"
+          />
+        </a-form-model-item>
         <a-form-model-item label="备注" prop="desc">
           <a-input v-model="form.desc" type="textarea" />
         </a-form-model-item>
@@ -24,14 +38,15 @@
 </template>
 <script>
 import FormPage from '@/components/form-page/';
-import { updateRoleInfo } from '@/api/role-data.js';
-import { FormModel, Input } from 'ant-design-vue';
+import { addCompany } from '@/api/ship-company-data.js';
+import { FormModel, Input, DatePicker } from 'ant-design-vue';
 export default {
   components: {
     FormPage,
     AFormModel: FormModel,
     AFormModelItem: FormModel.Item,
-    AInput: Input
+    AInput: Input,
+    ADatePicker: DatePicker
   },
   data() {
     return {
@@ -42,7 +57,10 @@ export default {
       formInfo: '',
       form: {
         name: '',
-        code: '',
+        address: '',
+        legalPerson: '',
+        phone: '',
+        createTime: undefined,
         desc: ''
       },
       others: false,
@@ -50,33 +68,37 @@ export default {
         name: [
           {
             required: true,
-            message: '请输入角色名称',
+            message: '请输入公司名称',
             trigger: 'blur'
           }
         ],
-        code: [{ required: true, message: '请输code', trigger: 'blur' }]
+        address: [{ required: true, message: '请输入地址', trigger: 'blur' }],
+        legalPerson: [
+          { required: true, message: '请输入法人', trigger: 'blur' }
+        ],
+        phone: [{ required: true, message: '请输入联系方式', trigger: 'blur' }],
+        createTime: [
+          { required: true, message: '请选择创建时间', trigger: 'blur' }
+        ]
       }
     };
   },
   created() {
     this.formInfo = this.$route.params.record;
-    this.form.name = this.formInfo.name;
-    this.form.code = this.formInfo.ccode;
-    this.form.desc = this.formInfo.description;
   },
   methods: {
     onSubmit() {
       this.$refs.form.validate(valid => {
         console.log('valid', valid);
         if (valid) {
-          this.updateRoleInfo();
+          this.addCompany();
         } else {
           console.log('error submit!!');
         }
       });
     },
-    updateRoleInfo() {
-      updateRoleInfo(this.formInfo.id).then(res => {
+    addCompany() {
+      addCompany(this.formInfo).then(res => {
         this.$notification.open({
           message: 'success',
           description: res.message,

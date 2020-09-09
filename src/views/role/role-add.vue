@@ -5,15 +5,17 @@
         :model="form"
         :label-col="labelCol"
         :wrapper-col="wrapperCol"
+        :rules="rules"
+        ref="form"
       >
-        <a-form-model-item label="Name">
+        <a-form-model-item label="姓名" prop="name">
           <a-input v-model="form.name" />
         </a-form-model-item>
-        <a-form-model-item label="Code">
+        <a-form-model-item label="Code" prop="code">
           <a-input v-model="form.code" />
         </a-form-model-item>
 
-        <a-form-model-item label="Description">
+        <a-form-model-item label="备注" prop="desc">
           <a-input v-model="form.desc" type="textarea" />
         </a-form-model-item>
       </a-form-model>
@@ -43,7 +45,17 @@ export default {
         code: '',
         desc: ''
       },
-      others: false
+      others: false,
+      rules: {
+        name: [
+          {
+            required: true,
+            message: '请输入角色名称',
+            trigger: 'blur'
+          }
+        ],
+        code: [{ required: true, message: '请输code', trigger: 'blur' }]
+      }
     };
   },
   created() {
@@ -51,6 +63,16 @@ export default {
   },
   methods: {
     onSubmit() {
+      this.$refs.form.validate(valid => {
+        console.log('valid', valid);
+        if (valid) {
+          this.addRole();
+        } else {
+          console.log('error submit!!');
+        }
+      });
+    },
+    addRole() {
       addRole(this.formInfo).then(res => {
         this.$notification.open({
           message: 'success',

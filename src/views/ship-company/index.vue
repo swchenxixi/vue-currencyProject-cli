@@ -9,15 +9,15 @@
     :changeTable="changeTable"
   >
     <template slot="btnbox" slot-scope="record">
-      <a-button type="primary" @click="addRole(record)">
-        添加角色<a-icon type="right" />
+      <a-button type="primary" @click="addCompany(record)">
+        添加船司<a-icon type="right" />
       </a-button>
     </template>
     <template slot="action" slot-scope="record">
-      <a-button type="primary" size="small" @click="editRole(record)">
+      <a-button type="primary" size="small" @click="editCompany(record)">
         修改
       </a-button>
-      <a-button type="danger" size="small" @click="deleteRole(record)">
+      <a-button type="danger" size="small" @click="deleteCompany(record)">
         删除
       </a-button>
     </template>
@@ -25,7 +25,10 @@
 </template>
 <script>
 import TableList from '@/components/table-list/';
-import { getRoleTableData, deleteRoleInfo } from '@/api/role-data.js';
+import {
+  getCompaneTableData,
+  deleteCompanyInfo
+} from '@/api/ship-company-data.js';
 export default {
   components: {
     TableList
@@ -38,15 +41,33 @@ export default {
       tableData: {
         columns: [
           {
-            title: '姓名',
+            title: '公司名',
             dataIndex: 'name',
             key: 'name',
             width: 300
           },
           {
-            title: 'Code',
-            dataIndex: 'ccode',
-            key: 'ccode',
+            title: '公司地址',
+            dataIndex: 'address',
+            key: 'address',
+            width: 300
+          },
+          {
+            title: '法人',
+            dataIndex: 'legalPerson',
+            key: 'legalPerson',
+            width: 300
+          },
+          {
+            title: '联系电话',
+            dataIndex: 'phone',
+            key: 'phone',
+            width: 300
+          },
+          {
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
             width: 300
           },
           {
@@ -56,7 +77,7 @@ export default {
             width: 300
           },
           {
-            title: '操作',
+            title: 'Action',
             key: 'action',
             scopedSlots: { customRender: 'action' },
             width: 150,
@@ -68,52 +89,23 @@ export default {
       searchData: [
         {
           type: 'input',
-          label: 'ID',
+          label: '公司ID',
           value: '',
           prop: 'id',
           id: 1101
         },
         {
           type: 'input',
-          label: '姓名',
+          label: '公司名称',
           value: '',
           prop: 'name',
           id: 1104
         },
-
-        {
-          type: 'input',
-          label: 'Code',
-          value: '',
-          prop: 'code',
-          id: 1105
-        },
         {
           type: 'date',
-          label: '时间范围',
-          value: ['2020-09-01', '2020-09-02'],
+          label: '创建时间',
           prop: 'dateval',
           id: 1102
-        },
-        {
-          type: 'select',
-          label: '下拉框',
-          value: [
-            {
-              label: '全部',
-              id: 200
-            },
-            {
-              label: 'option1',
-              id: 201
-            },
-            {
-              label: 'option2',
-              id: 202
-            }
-          ],
-          prop: 'selectval',
-          id: 1103
         }
       ],
       queryParam: {
@@ -129,36 +121,43 @@ export default {
       total: 0
     };
   },
+  watch: {
+    $route: function(to, from) {
+      console.log('to', to), console.log('from', from);
+    }
+  },
   methods: {
     getData() {
-      getRoleTableData(this.queryParam).then(res => {
+      getCompaneTableData(this.queryParam).then(res => {
         this.tableData.data = res.data.records;
         this.pageIndex = res.data.current;
         this.pageSize = res.data.size;
         this.total = res.data.total;
       });
     },
-    addRole() {
+    addCompany() {
       this.$router.push({
-        name: 'roleAdd'
+        name: 'companyAdd'
       });
     },
-    editRole(record) {
+    editCompany(record) {
       let params = record.record.record;
       this.$router.push({
-        name: 'roleEdit',
+        name: 'companyEdit',
         params: { record: params }
       });
     },
 
-    deleteRole(record) {
-      deleteRoleInfo(record.record.record.id).then(res => {
+    deleteCompany(record) {
+      deleteCompanyInfo(record.record.record.id).then(res => {
         this.$notification.open({
           message: 'success',
           description: res.message,
           icon: <a-icon type="smile" style="color: #108ee9" />
         });
+        this.getData();
       });
+      console.log(record);
     },
     btnAction(records) {
       console.log(records);
