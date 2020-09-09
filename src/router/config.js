@@ -89,6 +89,21 @@ export default [
     component: () => import('@/views/ship-company/company-edit')
   },
   {
+    path: '/ships-manage',
+    name: 'shipsManage',
+    component: () => import('@/views/ships')
+  },
+  {
+    path: '/ships-add',
+    name: 'shipsAdd',
+    component: () => import('@/views/ships/ships-add')
+  },
+  {
+    path: '/ships-edit',
+    name: 'shipsEdit',
+    component: () => import('@/views/ships/ships-edit')
+  },
+  {
     path: '*',
     name: '404',
     component: () => import('@/views/404')

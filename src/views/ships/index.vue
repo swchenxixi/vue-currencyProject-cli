@@ -10,25 +10,50 @@
   >
     <template slot="btnbox" slot-scope="record">
       <a-button type="primary" @click="addCompany(record)">
-        添加船司<a-icon type="right" />
+        添加<a-icon type="right" />
       </a-button>
     </template>
     <template slot="action" slot-scope="record">
-      <a-button type="primary" size="small" @click="editCompany(record)">
+      <a-row>
+        <a-button type="link" size="small" @click="shipsDetail(record)">
+          详情
+        </a-button>
+        <a-dropdown>
+          <a-menu slot="overlay" @click="handleMenuClick">
+            <a-menu-item key="1">
+              <a-button
+                type="primary"
+                size="small"
+                @click="editCompany(record)"
+              >
+                修改
+              </a-button>
+            </a-menu-item>
+            <a-menu-item key="2">
+              <a-button
+                type="danger"
+                size="small"
+                @click="deleteCompany(record)"
+              >
+                删除
+              </a-button>
+            </a-menu-item>
+          </a-menu>
+          <a-button type="link"> 更多 <a-icon type="down" /> </a-button>
+        </a-dropdown>
+      </a-row>
+      <!-- <a-button type="primary" size="small" @click="editCompany(record)">
         修改
       </a-button>
       <a-button type="danger" size="small" @click="deleteCompany(record)">
         删除
-      </a-button>
+      </a-button> -->
     </template>
   </table-list>
 </template>
 <script>
 import TableList from '@/components/table-list/';
-import {
-  getCompaneTableData,
-  deleteCompanyInfo
-} from '@/api/ship-company-data.js';
+import { getShipsTableData, deleteShipInfo } from '@/api/ships.js';
 export default {
   components: {
     TableList
@@ -41,23 +66,48 @@ export default {
       tableData: {
         columns: [
           {
-            title: '公司名',
-            dataIndex: 'name',
-            key: 'name',
+            title: '船名',
+            dataIndex: 'shipName',
+            key: 'shipName',
             width: 300
           },
           {
-            title: '公司地址',
-            dataIndex: 'address',
-            key: 'address',
+            title: '船名代码',
+            dataIndex: 'shipCode',
+            key: 'shipCode',
             width: 300
           },
           {
-            title: '法人',
-            dataIndex: 'legalPerson',
-            key: 'legalPerson',
+            title: '普通舱',
+            dataIndex: 'generalCarbine',
+            key: 'generalCarbine',
             width: 300
           },
+          {
+            title: '头等舱',
+            dataIndex: 'firstCarbine',
+            key: 'firstCarbine',
+            width: 300
+          },
+          {
+            title: '贵宾舱',
+            dataIndex: 'VIPCarbine',
+            key: 'VIPCarbine',
+            width: 300
+          },
+          {
+            title: '舱位数',
+            dataIndex: 'carbinsCount',
+            key: 'carbinsCount',
+            width: 300
+          },
+          {
+            title: '船公司',
+            dataIndex: 'company',
+            key: 'company',
+            width: 300
+          },
+
           {
             title: '联系电话',
             dataIndex: 'phone',
@@ -80,7 +130,7 @@ export default {
             title: 'Action',
             key: 'action',
             scopedSlots: { customRender: 'action' },
-            width: 150,
+            width: 180,
             fixed: 'right'
           }
         ],
@@ -89,23 +139,37 @@ export default {
       searchData: [
         {
           type: 'input',
-          label: '公司ID',
+          label: '船名',
           value: '',
-          prop: 'id',
+          prop: 'shipName',
           id: 1101
         },
         {
           type: 'input',
-          label: '公司名称',
+          label: '船名代码',
           value: '',
-          prop: 'name',
-          id: 1104
+          prop: 'shipCode',
+          id: 1102
         },
         {
           type: 'date',
           label: '创建时间',
           prop: 'dateval',
-          id: 1102
+          id: 1103
+        },
+        {
+          type: 'input',
+          label: '公司',
+          value: '',
+          prop: 'company',
+          id: 1104
+        },
+        {
+          type: 'input',
+          label: '电话',
+          value: '',
+          prop: 'phone',
+          id: 1105
         }
       ],
       queryParam: {
@@ -128,28 +192,29 @@ export default {
   },
   methods: {
     getData() {
-      getCompaneTableData(this.queryParam).then(res => {
+      getShipsTableData(this.queryParam).then(res => {
         this.tableData.data = res.data.records;
         this.pageIndex = res.data.current;
         this.pageSize = res.data.size;
         this.total = res.data.total;
       });
     },
+    shipsDetail() {},
     addCompany() {
       this.$router.push({
-        name: 'companyAdd'
+        name: 'shipsAdd'
       });
     },
     editCompany(record) {
       let params = record.record.record;
       this.$router.push({
-        name: 'companyEdit',
+        name: 'shipsEdit',
         params: { record: params }
       });
     },
 
     deleteCompany(record) {
-      deleteCompanyInfo(record.record.record.id).then(res => {
+      deleteShipInfo(record.record.record.id).then(res => {
         this.$notification.open({
           message: 'success',
           description: res.message,

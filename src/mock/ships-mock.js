@@ -6,9 +6,13 @@ Mock.mock('/ship/ship/page', 'get', {
     'records|4': [
       {
         'id|+1': 100,
-        name: '@cparagraph(1)',
-        address: '@cparagraph(2)',
-        legalPerson: '@cname',
+        shipName: '@cparagraph(1)',
+        'shipCode|+5': 558,
+        'generalCarbine|+9': 166,
+        'firstCarbine|+9': 79,
+        'VIPCarbine|+9': 45,
+        'carbinsCount|+9': 256,
+        company: '@cname',
         'phone|+3': 18279712988,
         createTime: '@date("yyyy-MM-dd") ',
         description: '@cparagraph()'
