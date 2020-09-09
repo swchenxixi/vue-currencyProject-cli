@@ -9,23 +9,55 @@
           :rules="rules"
           ref="form"
         >
-          <a-form-model-item label="港口" prop="name">
-            <a-input v-model="form.name" />
+          <a-form-model-item label="始发站">
+            <a-select v-model="form.depHarborId" placeholder="请选择始发站">
+              <a-select-option
+                v-for="item in startPort"
+                :key="item.id"
+                :value="item.id"
+              >
+                {{ item.name }}
+              </a-select-option>
+            </a-select>
           </a-form-model-item>
-          <a-form-model-item label="编码" prop="code">
-            <a-input v-model="form.code" />
+          <a-form-model-item label="停靠站" prop="stopPort">
+            <!-- <a-checkbox-group v-model="form.stopPort">
+              <a-checkbox
+                :value="item.id"
+                name="type"
+                v-for="item in stopPort"
+                :key="item.id"
+              >
+                {{ item.name }}
+              </a-checkbox>
+            </a-checkbox-group> -->
+            <a-select
+              mode="multiple"
+              :default-value="[]"
+              style="width: 100%"
+              placeholder="请选择停靠站"
+              v-model="form.stopPort"
+              @change="handleChange"
+            >
+              <a-select-option v-for="item in stopPort" :key="item.id">
+                {{ item.name }}
+              </a-select-option>
+            </a-select>
           </a-form-model-item>
-          <a-form-model-item label="国家" prop="country">
-            <a-input v-model="form.country" />
+
+          <a-form-model-item label="目的站">
+            <a-select v-model="form.destHarborId" placeholder="请选择目的站">
+              <a-select-option
+                v-for="item in destPort"
+                :key="item.id"
+                :value="item.id"
+              >
+                {{ item.name }}
+              </a-select-option>
+            </a-select>
           </a-form-model-item>
-          <a-form-model-item label="地址" prop="address">
-            <a-input v-model="form.address" />
-          </a-form-model-item>
-          <a-form-model-item label="经度" prop="longitude">
-            <a-input v-model="form.longitude" />
-          </a-form-model-item>
-          <a-form-model-item label="纬度" prop="latitude">
-            <a-input v-model="form.latitude" />
+          <a-form-model-item label="备注">
+            <a-input v-model="form.remark" type="textarea" />
           </a-form-model-item>
         </a-form-model>
       </template>
@@ -34,18 +66,23 @@
 </template>
 <script>
 import FormPage from '@/components/form-page/';
-import { FormModel, Input } from 'ant-design-vue';
+import { FormModel, Input, Select } from 'ant-design-vue';
+import { getAllPortData } from '@/api/port-data.js';
 import {
-  addPortData,
-  editPortData,
-  getPortDetailData
-} from '@/api/port-data.js';
+  addLineData,
+  editLineData,
+  getLineDetailData
+} from '@/api/shipLine-data.js';
 export default {
   components: {
     FormPage,
     AFormModel: FormModel,
     AFormModelItem: FormModel.Item,
-    AInput: Input
+    AInput: Input,
+    // ACheckbox: Checkbox,
+    // ACheckboxGroup: Checkbox.Group,
+    ASelect: Select,
+    ASelectOption: Select.Option
   },
   created() {
     console.log(this.$route.params);
@@ -54,6 +91,8 @@ export default {
       //初始化
       this.init();
     }
+    //获取全部港口列表
+    this.getAllPort();
   },
   data() {
     return {
@@ -70,17 +109,17 @@ export default {
         address: ''
       },
       rules: {
-        name: [{ required: true, message: '请输入用户姓名', trigger: 'blur' }],
-        code: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        country: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
-        address: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
-        longitude: [
-          { required: true, message: '请输入手机号', trigger: 'blur' }
-        ],
-        latitude: [{ required: true, message: '请输入手机号', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入港口', trigger: 'blur' }],
+        code: [{ required: true, message: '请输入编码', trigger: 'blur' }],
+        country: [{ required: true, message: '请输入国家', trigger: 'blur' }],
+        address: [{ required: true, message: '请输入地址', trigger: 'blur' }],
+        longitude: [{ required: true, message: '请输入经度', trigger: 'blur' }],
+        latitude: [{ required: true, message: '请输入纬度', trigger: 'blur' }]
       },
       others: false,
-      roles: []
+      stopPort: [],
+      destPort: [],
+      startPort: []
     };
   },
   methods: {
@@ -89,7 +128,7 @@ export default {
       this.getDetail();
     },
     async getDetail() {
-      let res = await getPortDetailData(this.ids);
+      let res = await getLineDetailData(this.ids);
       console.log(res.data);
       let { code, name, address, country, latitude, longitude } = res.data;
 
@@ -120,31 +159,32 @@ export default {
     },
     async add() {
       console.log(this.form);
-      let res = await addPortData(this.form);
+      let res = await addLineData(this.form);
       console.log(res);
-      this.$router.push({ path: '/port-list' });
+      this.$router.push({ path: '/shipLine-list' });
     },
     async edit() {
       console.log(this.form);
-      let res = await editPortData(this.form);
+      let res = await editLineData(this.form);
       console.log(res);
-      this.$router.push({ path: '/port-list' });
+      this.$router.push({ path: '/shipLine-list' });
     },
     onCancel() {
       console.log('取消操作');
       this.$router.go(-1);
     },
-    async getAllRoles() {
-      let res = await addPortData();
-      console.log(res);
+    async getAllPort() {
+      let res = await getAllPortData();
       res.data.map(obj => {
-        this.roles.push({
+        this.stopPort.push({
           id: obj.id,
-          name: obj.name,
-          code: obj.code
+          name: obj.name
         });
       });
-    }
+      this.destPort = JSON.parse(JSON.stringify(this.stopPort));
+      this.startPort = JSON.parse(JSON.stringify(this.stopPort));
+    },
+    handleChange() {}
   }
 };
 </script>

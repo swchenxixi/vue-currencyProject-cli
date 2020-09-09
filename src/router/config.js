@@ -62,7 +62,7 @@ export default [
   },
   {
     path: '/shipLine-list',
-    name: 'PortList',
+    name: 'ShipLineList',
     meta: {
       auth: true
     },
@@ -70,7 +70,7 @@ export default [
   },
   {
     path: '/shipLine-add',
-    name: 'PortAdd',
+    name: 'ShipLineAdd',
     component: () => import('@/views/shipLine/shipLine-add')
   },
   {

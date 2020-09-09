@@ -24,12 +24,15 @@
 <script>
 import TableList from '@/components/table-list/';
 import { getLineData, delLineData } from '@/api/shipLine-data.js';
+import { getAllPortData } from '@/api/port-data.js';
 export default {
   components: {
     TableList
   },
   created() {
-    // this.getData();
+    this.getData();
+    //获取所有港口列表
+    this.getAllPort();
   },
   data() {
     return {
@@ -49,34 +52,34 @@ export default {
           },
           {
             title: '进/出',
-            dataIndex: 'code',
-            key: 'code',
+            dataIndex: 'io',
+            key: 'io',
             width: 100
           },
           {
             title: '始发港',
-            dataIndex: 'country',
-            key: 'country',
+            dataIndex: 'depHarborId',
+            key: 'depHarborId',
             width: 100
           },
           {
             title: '目的港',
-            dataIndex: 'country',
-            key: 'country',
+            dataIndex: 'destHarborId',
+            key: 'destHarborId',
             width: 100
           },
           {
             title: '备注',
-            dataIndex: 'longitude',
-            key: 'longitude',
+            dataIndex: 'remark',
+            key: 'remark',
             width: 100
           },
-          {
-            title: '创建时间',
-            dataIndex: 'latitude',
-            key: 'latitude',
-            width: 100
-          },
+          //   {
+          //     title: '创建时间',
+          //     dataIndex: 'latitude',
+          //     key: 'latitude',
+          //     width: 100
+          //   },
           {
             title: '操作',
             key: 'action',
@@ -88,33 +91,26 @@ export default {
         data: {}
       },
       searchData: [
-        // {
-        //   type: 'select',
-        //   label: '始发港',
-        //   value: [],
-        //   valname: 'depHarborId',
-        //   id: 1101
-        // },
-        // {
-        //   type: 'select',
-        //   label: '目的港',
-        //   value: [],
-        //   valname: 'destHarborId',
-        //   id: 1102
-        // },
         {
-          type: 'input',
-          label: '输入框',
-          value: '',
-          prop: 'age',
+          type: 'select',
+          label: '始发港',
+          value: [],
+          prop: 'depHarborId',
           id: 1101
+        },
+        {
+          type: 'select',
+          label: '目的港',
+          value: [],
+          prop: 'destHarborId',
+          id: 1102
         },
         {
           type: 'daterange',
           label: '操作时间',
           value: ['2020-09-01', '2020-09-02'],
           prop: 'daterangeval',
-          id: 1102
+          id: 1103
         }
       ],
       queryParam: {
@@ -125,7 +121,8 @@ export default {
       },
       pageIndex: 0,
       pageSize: 0,
-      total: 0
+      total: 0,
+      ports: []
     };
   },
   methods: {
@@ -141,7 +138,7 @@ export default {
     amend(record) {
       console.log(record);
       this.$router.push({
-        name: 'PortAdd',
+        path: '/shipLine-add',
         params: { id: record.record.record.id }
       });
     },
@@ -163,7 +160,19 @@ export default {
     add(record) {
       //切换页面
       console.log(record);
-      this.$router.push({ path: '/port-add' });
+      this.$router.push({ path: '/shipLine-add' });
+    },
+    async getAllPort() {
+      let res = await getAllPortData();
+      console.log(res.data);
+      res.data.map(obj => {
+        this.ports.push({
+          id: obj.id,
+          label: obj.name
+        });
+      });
+      this.searchData[0].value = JSON.parse(JSON.stringify(this.ports));
+      this.searchData[1].value = JSON.parse(JSON.stringify(this.ports));
     }
   }
 };
