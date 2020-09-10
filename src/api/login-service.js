@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from '@/axios';
 export async function login(loginId, loginPassword) {
   const resp = await axios.post('/api/user/login', {
     loginId,
@@ -20,30 +19,22 @@ export async function login(loginId, loginPassword) {
 }
 
 export async function whoAmI() {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return null;
-  }
-  const resp = await axios.get('/api/user/whoami', {
-    headers: {
-      token
-    }
-  });
+  const resp = await axios.get('/api/user/whoami');
   return resp.data;
 }
-
-export async function getPermissions() {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    return null;
-  }
-  const resp = await axios.get('/api/permissions', {
-    headers: {
-      token
-    }
-  });
-  return resp.data;
-}
+// eg2:未做请求拦截情况，每次请求需要加上token
+// export async function getPermissions() {
+//   const token = localStorage.getItem('token');
+//   if (!token) {
+//     return null;
+//   }
+//   const resp = await this.axios.get('/api/permissions', {
+//     headers: {
+//       token
+//     }
+//   });
+//   return resp.data;
+// }
 
 export function logout() {
   localStorage.removeItem('token', null);

@@ -8,7 +8,11 @@
         <a-input v-model="form.loginPassword" />
       </a-form-model-item>
       <a-form-model-item label=" " :colon="false">
-        <a-button type="primary" block @click.prevent="onLogin(form)"
+        <a-button
+          type="primary"
+          block
+          @click.prevent="onLogin(form)"
+          v-debounceFun
           >登录</a-button
         >
       </a-form-model-item>
